@@ -80,8 +80,20 @@ variable "block_device_mappings" {
       volume_type           = string
     })
   }))
-
-  default = []
+  default = [{
+    device_name  = null
+    no_device    = false
+    virtual_name = null
+    ebs = {
+      delete_on_termination = true
+      encrypted             = true
+      iops                  = null
+      kms_key_id            = null
+      snapshot_id           = null
+      volume_size           = null
+      volumes_type          = null
+    }
+  }]
 }
 
 variable "instance_market_options" {
@@ -101,7 +113,7 @@ variable "instance_market_options" {
   default = null
 }
 
-variable mixed_instances_policy {
+variable "mixed_instances_policy" {
   description = "policy to used mixed group of on demand/spot of differing types. Launch template is automatically generated. https://www.terraform.io/docs/providers/aws/r/autoscaling_group.html#mixed_instances_policy-1"
 
   type = object({
